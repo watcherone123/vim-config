@@ -1,0 +1,117 @@
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('$VIM/vimfiles/plugged')
+Plug 'tomasr/molokai'
+" multiplecursors
+Plug 'terryma/vim-multiple-cursors'
+" ----- Ctrlp ----- {{{
+Plug 'kien/ctrlp.vim'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+set wildignore+=*\\.git\\*,*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc
+if executable('pt')
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+        let g:ctrlp_user_command = 'pt %s -l --nocolor -g ""'
+        " ag is fast enough that CtrlP doesn't need to cache
+        let g:ctrlp_use_caching = 0
+endif
+" }}}
+" ----- Nerdcommenter ----- {{{
+Plug 'scrooloose/nerdcommenter'
+" }}}
+" ----- Airline ----- {{{
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1   
+if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+endif
+"let g:airl"ine_left_sep = '▶'
+"let g:airline_left_alt_sep = '❯'
+"let g:airline_right_sep = '◀'
+"let g:airline_right_alt_sep = '❮'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+let g:airline_theme='molokai'
+let g:airline_mode_map = {
+                        \ 'n'  : 'N',
+                        \ 'i'  : 'I',
+                        \ 'v'  : 'V',
+                        \ }
+" }}}
+" nerdtree nerdtreetabs {{{
+Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
+" map <leader>n :NERDTreeToggle<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+" s/v 分屏打开文件
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
+map <F8> :NERDTreeToggle<CR>
+imap <F8> <ESC> :NERDTreeToggle<CR>
+
+" nerdtreetabs
+" 关闭同步
+" let g:nerdtree_tabs_synchronize_view=0
+" let g:nerdtree_tabs_synchronize_focus=0
+" 是否自动开启nerdtree
+" thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
+" let g:nerdtree_tabs_open_on_console_startup=0
+" let g:nerdtree_tabs_open_on_gui_startup=0
+" }}}
+" tagbar {{{
+Plug 'majutsushi/tagbar'
+nmap <F9> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+" let g:tagbar_autoshowtag = 1
+" let g:tagbar_show_visibility = 1
+
+" }}}
+" delimitMate {{{
+ Plug 'Raimondi/delimitMate'
+    " for python docstring ",优化输入
+ "   au FileType python let b:delimitMate_nesting_quotes = ['"']
+    "au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
+"    " 关闭某些类型文件的自动补全
+    "au FileType mail let b:delimitMate_autoclose = 0
+" }}}
+" neocomplete {{{
+Plug 'Shougo/neocomplete'
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType tpl,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType typescript,javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" }}}
+call plug#end()
+
+
