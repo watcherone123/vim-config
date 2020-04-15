@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Timestamp Synchronization - Livox SDK Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Timestamp Synchronization";
+    var mkdocs_page_input_path = "Timestamp-Synchronization.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Livox SDK Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Livox-SDK-Communication-Protocol/">Livox SDK Communication Protocol</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Livox-Viewer/">1. Color Coding Strategy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../The-installation-of-Livox-SDK-on-Linux-32-bit-system-and-Mac/">1 Livox SDK API</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Timestamp Synchronization</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#11_application_scenarios">1.1 Application Scenarios</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ptp_v2">PTP v2:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pps">PPS:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gps">GPS:</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Livox SDK Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Timestamp Synchronization</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><strong>Livox LiDAR Timestamp Synchronization</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Document   Release History</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Date</strong></td>
+<td><strong>Release</strong></td>
+<td><strong>Change Description</strong></td>
+</tr>
+<tr>
+<td>2019/6/19</td>
+<td>v1.0.0</td>
+<td>Initial release</td>
+</tr>
+<tr>
+<td>2020/2/13</td>
+<td>v1.1.0</td>
+<td>LiDAR add GPS synchronization method</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="toc">
+<ul>
+<li><a href="#1_summary">1 Summary</a><ul>
+<li><a href="#11_application_scenarios">1.1 Application Scenarios</a><ul>
+<li><a href="#ptp_v2">PTP v2:</a></li>
+<li><a href="#pps">PPS:</a></li>
+<li><a href="#gps">GPS:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2_usage">2 Usage</a><ul>
+<li><a href="#21_ptp_v2">2.1 PTP v2</a><ul>
+<li><a href="#211_connection">2.1.1 Connection</a></li>
+<li><a href="#212_attention">2.1.2 Attention</a></li>
+<li><a href="#213_accuracy">2.1.3 Accuracy</a></li>
+</ul>
+</li>
+<li><a href="#22_gps">2.2 GPS</a><ul>
+<li><a href="#221_livox_hub">2.2.1 Livox Hub</a><ul>
+<li><a href="#2211_connection">2.2.1.1 Connection</a></li>
+<li><a href="#2212_configuration">2.2.1.2 Configuration</a></li>
+</ul>
+</li>
+<li><a href="#222_mid40100">2.2.2 Mid40/100</a><ul>
+<li><a href="#2221_connection">2.2.2.1 Connection</a></li>
+<li><a href="#2222_configuration">2.2.2.2 Configuration</a></li>
+</ul>
+</li>
+<li><a href="#223_horizon">2.2.3 Horizon</a><ul>
+<li><a href="#2231_connection">2.2.3.1 Connection</a></li>
+<li><a href="#2232_configuration">2.2.3.2 Configuration</a></li>
+</ul>
+</li>
+<li><a href="#224_attention">2.2.4 Attention</a></li>
+<li><a href="#225_accuracy">2.2.5 Accuracy</a></li>
+</ul>
+</li>
+<li><a href="#23_pps">2.3 PPS</a><ul>
+<li><a href="#231_connection">2.3.1 Connection</a></li>
+<li><a href="#232_attention">2.3.2 Attention</a></li>
+<li><a href="#233_accuracy">2.3.3 Accuracy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3_appendix">3 Appendix</a><ul>
+<li><a href="#31_set_up_ptp_master_clock">3.1 Set Up PTP Master Clock</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="1_summary">1 Summary<a class="headerlink" href="#1_summary" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th><strong>Device</strong></th>
+<th><strong>Supported Time Synchronization Method</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Livox LiDAR</td>
+<td>1. PTP v2<br>2. GPS<br>3. Pulse Per Second (PPS)</td>
+</tr>
+<tr>
+<td>Livox Hub</td>
+<td>1. PTP v2<br>2. GPS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11_application_scenarios">1.1 Application Scenarios<a class="headerlink" href="#11_application_scenarios" title="Permanent link">#</a></h3>
+<h4 id="ptp_v2">PTP v2:<a class="headerlink" href="#ptp_v2" title="Permanent link">#</a></h4>
+<p>In the absence of GPS and PPS signals, PTP v2 can be used to synchronize time between Livox LiDAR/Hub and other devices. This method requires minimal external hardware environment and only requires a master clock supporting device in the whole network.</p>
+<h4 id="pps">PPS:<a class="headerlink" href="#pps" title="Permanent link">#</a></h4>
+<p>Livox LiDAR supports PPS time synchronization. PPS signal usually comes from GPS receiver. PPS signal generated by other devices such as MCU is also suitable. </p>
+<h4 id="gps">GPS:<a class="headerlink" href="#gps" title="Permanent link">#</a></h4>
+<p>Livox Hub supports GPS time synchronization, which is recommended when integrating multiple LiDAR units via Livox Hub. Livox Hub needs the PPS and the time signal in GPRMC format from GPS receiver.</p>
+<h2 id="2_usage">2 Usage<a class="headerlink" href="#2_usage" title="Permanent link">#</a></h2>
+<h3 id="21_ptp_v2">2.1 PTP v2<a class="headerlink" href="#21_ptp_v2" title="Permanent link">#</a></h3>
+<p>When Livox LiDAR or Livox Hub is connected to a network with master clock, the clock of  each LiDAR point cloud is automatically synchronized to the master clock. When PTP, PPS or GPS are available at the same time, PTP network synchronization is preferred.</p>
+<h4 id="211_connection">2.1.1 Connection<a class="headerlink" href="#211_connection" title="Permanent link">#</a></h4>
+<p>Connect Livox LiDAR/Hub normally without additional wiring. </p>
+<h4 id="212_attention">2.1.2 Attention<a class="headerlink" href="#212_attention" title="Permanent link">#</a></h4>
+<p>Network environments with multiple master clocks are not supported. For the construction of master clock, please refer to Appendix <a href="#3.1">3.1 Set Up PTP Master Clock</a>.</p>
+<h4 id="213_accuracy">2.1.3 Accuracy<a class="headerlink" href="#213_accuracy" title="Permanent link">#</a></h4>
+<p>Hundreds of nanoseconds</p>
+<h3 id="22_gps">2.2 GPS<a class="headerlink" href="#22_gps" title="Permanent link">#</a></h3>
+<h4 id="221_livox_hub">2.2.1 Livox Hub<a class="headerlink" href="#221_livox_hub" title="Permanent link">#</a></h4>
+<h5 id="2211_connection">2.2.1.1 Connection<a class="headerlink" href="#2211_connection" title="Permanent link">#</a></h5>
+<p>Connect the PPS signal and time stamp signal from GPS module to the Livox Hub's GPS sync port.</p>
+<p><img alt="" src="../images/gps_ttl_hub.png" /></p>
+<p>Remarks: </p>
+<ul>
+<li>If the data output by the GPS module is 485 level, TTL to 485 module is not needed.</li>
+</ul>
+<h5 id="2212_configuration">2.2.1.2 Configuration<a class="headerlink" href="#2212_configuration" title="Permanent link">#</a></h5>
+<p>Do not require any software configuration when using Livox Hub for GPS time synchronization.</p>
+<h4 id="222_mid40100">2.2.2 Mid40/100<a class="headerlink" href="#222_mid40100" title="Permanent link">#</a></h4>
+<h5 id="2221_connection">2.2.2.1 Connection<a class="headerlink" href="#2221_connection" title="Permanent link">#</a></h5>
+<p>Connect the PPS signal from GPS module to the sync port of Mid40/100 converter, and connect the time stamp signal to PC through the TTL to USB module.</p>
+<p><img alt="" src="../images/gps_ttl_mid.png" /></p>
+<p>Remarks: If the data output by the GPS module is 485 level, the TTL to 485 module is not needed.</p>
+<h5 id="2222_configuration">2.2.2.2 Configuration<a class="headerlink" href="#2222_configuration" title="Permanent link">#</a></h5>
+<p>Mid firmware version: &gt;= v03.07.0000, SDK version &gt;= v2.0.0</p>
+<p><strong>Use ROS driver</strong></p>
+<ul>
+<li>Connect the hardware according to the above block diagram;</li>
+<li>View the name of the port receiving "Time signal"(GPRMC/GNRMC) in PC system, such as <code>/dev/ttyUSB0</code>, configure "device_name" to this name in the file <a href="https://github.com/Livox-SDK/livox_ros_driver/blob/master/livox_ros_driver/config/livox_lidar_config.json">livox_lidar_config.json</a>, and set "enable_timesync" to <code>true</code>;</li>
+<li>Run the launch file;</li>
+</ul>
+<p><strong>Use only SDK</strong></p>
+<p>The link below is an example showing how to synchronize using only SDK:</p>
+<p><a href="https://github.com/Livox-SDK/Livox-SDK/tree/master/sample_cc/lidar_utc_sync">https://github.com/Livox-SDK/Livox-SDK/tree/master/sample_cc/lidar_utc_sync</a></p>
+<h4 id="223_horizon">2.2.3 Horizon<a class="headerlink" href="#223_horizon" title="Permanent link">#</a></h4>
+<h5 id="2231_connection">2.2.3.1 Connection<a class="headerlink" href="#2231_connection" title="Permanent link">#</a></h5>
+<p>Connect the PPS signal from GPS module to the sync port of Livox converter 2.0, and connect the time stamp signal to PC through TTL to USB module.</p>
+<p><img alt="" src="../images/gps_ttl_horizon.png" /></p>
+<h5 id="2232_configuration">2.2.3.2 Configuration<a class="headerlink" href="#2232_configuration" title="Permanent link">#</a></h5>
+<p>Horizon firmware version: &gt;= v06.06.0000, SDK version &gt;= v2.0.0</p>
+<p><strong>Use ROS driver</strong></p>
+<ul>
+<li>Connect the hardware according to the above block diagram;</li>
+<li>View the name of the port receiving "Time signal"(GPRMC/GNRMC) in PC system, such as <code>/dev/ttyUSB0</code>, configure "device_name" to this name in the file <a href="https://github.com/Livox-SDK/livox_ros_driver/blob/master/livox_ros_driver/config/livox_lidar_config.json">livox_lidar_config.json</a>, and set "enable_timesync" to <code>true</code>;</li>
+<li>Run the launch file;</li>
+</ul>
+<p><strong>Use only SDK</strong></p>
+<p>The link below is an example showing how to synchronize using only SDK:</p>
+<p><a href="https://github.com/Livox-SDK/Livox-SDK/tree/master/sample_cc/lidar_utc_sync">https://github.com/Livox-SDK/Livox-SDK/tree/master/sample_cc/lidar_utc_sync</a></p>
+<h4 id="224_attention">2.2.4 Attention<a class="headerlink" href="#224_attention" title="Permanent link">#</a></h4>
+<ul>
+<li>Generally, when there is GPS satellite signal, the GPS module will have PPS signal and time signal output. In normal use, make sure the GPS satellite signal is stable.</li>
+<li>Make sure that the output of "Time signal" is standard GPRMC/GNRMC message.</li>
+</ul>
+<h4 id="225_accuracy">2.2.5 Accuracy<a class="headerlink" href="#225_accuracy" title="Permanent link">#</a></h4>
+<p>1 microsecond</p>
+<h3 id="23_pps">2.3 PPS<a class="headerlink" href="#23_pps" title="Permanent link">#</a></h3>
+<p><strong>Because the LiDAR has supported GPS synchronization, the PPS method is not recommended.</strong></p>
+<p>Every time the LiDAR receives the rising edge of a pulse, the timestamp of point cloud will be reset to 0, and then the time will increase until the rising edge of the next pulse is received. We can use this feature to update the timestamp in each point cloud packet to the external GPS time.</p>
+<p>Here is the pseudocode to achieve this synchronization:</p>
+<pre><code class="c">// GPS Time Synchronization
+static uint64_t LiDAR_time_last;
+static uint64_t LiDAR_time_real;
+
+// 1. Read total second of the UTC time, Unit is second.
+uint32_t gps_time_s = get_gps_utc_second();
+// 2. Read LiDAR point time, Unit is nanosecond.
+uint64_t LiDAR_time = get_LiDAR_pack_time();
+// 3. Update real time.
+if (LiDAR_time &lt; LiDAR_time_last)
+{
+    //LiDAR time jump indicates the generation of GPS pulse.
+    LiDAR_time_real = gps_time_s*(1e9) + LiDAR_time%(1000000000);
+}
+else
+{
+    LiDAR_time_real += LiDAR_time - LiDAR_time_last;
+}
+//Update history
+LiDAR_time_last = LiDAR_time;
+</code></pre>
+
+<h4 id="231_connection">2.3.1 Connection<a class="headerlink" href="#231_connection" title="Permanent link">#</a></h4>
+<p><strong>Mid:</strong></p>
+<p><img alt="" src="../images/gps_ttl_mid.png" /></p>
+<p><strong>Horizon:</strong></p>
+<p><img alt="" src="../images/gps_ttl_horizon.png" /></p>
+<h4 id="232_attention">2.3.2 Attention<a class="headerlink" href="#232_attention" title="Permanent link">#</a></h4>
+<ul>
+<li>If the data output by the GPS module is 485 level, TTL to 485 module is not needed.</li>
+</ul>
+<h4 id="233_accuracy">2.3.3 Accuracy<a class="headerlink" href="#233_accuracy" title="Permanent link">#</a></h4>
+<p>1 microsecond</p>
+<h2 id="3_appendix">3 Appendix<a class="headerlink" href="#3_appendix" title="Permanent link">#</a></h2>
+<h3 id="31_set_up_ptp_master_clock">3.1 Set Up PTP Master Clock<a class="headerlink" href="#31_set_up_ptp_master_clock" title="Permanent link">#</a></h3>
+<p>Address: <a href="https://github.com/ptpd/ptpd">https://github.com/ptpd/ptpd</a></p>
+<p>Download, compile and install:</p>
+<pre><code class="bash">git clone https://github.com/ptpd/ptpd.git
+autoreconf -vi
+./configure
+make
+make install
+</code></pre>
+
+<p>Modify the configuration file client-e2e-socket.conf in the test folder according to your needs. You can use the following configuration:</p>
+<p>Add a network interface name, such as eth0:</p>
+<pre><code>; Network interface to use (required)
+ptpengine:interface = eth0
+</code></pre>
+
+<p>Set the master clock function and set the parameters to masteronly:</p>
+<pre><code>; Options: none slaveonly masteronly masterslave 
+ptpengine:preset = masteronly
+</code></pre>
+
+<p>Set clock_class to a value lower than 128:</p>
+<pre><code>; Clock class - announced in master state. Always 255 for slave-only mode.
+; Minimum, maximum and default values are controlled by presets.
+; If set to 13 (application specific time source), announced 
+; time scale is always set to ARB. This setting controls the
+; states a PTP port can be in. If below 128, port will only
+; be in MASTER or PASSIVE states (master only). If above 127,
+; port will be in MASTER or SLAVE states.
+ptpengine:clock_class = 126
+</code></pre>
+
+<p>Then run the following command:</p>
+<pre><code class="bash">ptpd2 -c test/client-e2e-socket.conf
+</code></pre>
+
+<p>When a sync packet appears on the network, it indicates that the master clock of ptpd is successfully turned on.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../The-installation-of-Livox-SDK-on-Linux-32-bit-system-and-Mac/" class="btn btn-neutral" title="1 Livox SDK API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../The-installation-of-Livox-SDK-on-Linux-32-bit-system-and-Mac/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

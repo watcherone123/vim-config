@@ -1,0 +1,5051 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Livox SDK Communication Protocol - Livox SDK Docs</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Livox SDK Communication Protocol";
+    var mkdocs_page_input_path = "Livox-SDK-Communication-Protocol.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/bash.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Livox SDK Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Livox SDK Communication Protocol</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#11_data_class">1.1 Data Class</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#12_mode_and_state_description">1.2 Mode and State Description</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Livox-Viewer/">1. Color Coding Strategy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../The-installation-of-Livox-SDK-on-Linux-32-bit-system-and-Mac/">1 Livox SDK API</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Timestamp-Synchronization/">Timestamp Synchronization</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Livox SDK Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Livox SDK Communication Protocol</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><strong>Livox SDK Communication Protocol</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Document Release History</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Date</strong></td>
+<td><strong>Release</strong></td>
+<td><strong>Change Description</strong></td>
+</tr>
+<tr>
+<td>2019/10/22</td>
+<td>v1.1.1</td>
+<td>1. Update status code, add time synchronization status (Horizon: v06.05.00.00+, Mid-40/Mid-100: v03.07.00.00+) <br>2. Change IMU data push frequency</td>
+</tr>
+<tr>
+<td>2019/9/25</td>
+<td>v1.1.0</td>
+<td>1. Add Tele-15 / Horizon LiDAR's support</td>
+</tr>
+<tr>
+<td>2019/7/08</td>
+<td>v1.0.6</td>
+<td>1. Fix crc32 bits error <br>2. Add system status code description</td>
+</tr>
+<tr>
+<td>2019/5/17</td>
+<td>v1.0.5</td>
+<td>Fix partial description errors</td>
+</tr>
+<tr>
+<td>2019/4/18</td>
+<td>v1.0.4</td>
+<td>1. Update motor status code (v03.05.00.00+) <br>2. Add query Hub slot power status command (v08.05.00.00+)</td>
+</tr>
+<tr>
+<td>2019/4/17</td>
+<td>v1.0.3</td>
+<td>Update Hub read LiDAR extrinsic parameters description</td>
+</tr>
+<tr>
+<td>2019/3/25</td>
+<td>v1.0.2</td>
+<td>Update 3.2 Time Stamp description</td>
+</tr>
+<tr>
+<td>2019/2/25</td>
+<td>v1.0.1</td>
+<td>Update 3.2 Time Stamp description</td>
+</tr>
+<tr>
+<td>2019/1/16</td>
+<td>v1.0.0</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1_summary">1 Summary<a class="headerlink" href="#1_summary" title="Permanent link">#</a></h2>
+<h3 id="11_data_class">1.1 Data Class<a class="headerlink" href="#11_data_class" title="Permanent link">#</a></h3>
+<p>There are two types of communication between the user and LiDAR unit(s), and the
+protocol formats of these two kinds of data are different. The specific functions 
+and differences are as follows:</p>
+<blockquote>
+<ul>
+<li><strong>Control Command Data</strong>: Configuration and query of LiDAR parameters and status
+information;</li>
+<li><strong>Sample Data</strong>: Sample data generated by LiDAR units including point cloud data and IMU data(Not supported by MID40/100);
+At present, both protocols are encapsulated in the data segment of the UDP
+package, and the data format in protocol is stored in little-endian form.</li>
+</ul>
+</blockquote>
+<h3 id="12_mode_and_state_description">1.2 Mode and State Description<a class="headerlink" href="#12_mode_and_state_description" title="Permanent link">#</a></h3>
+<p>The mode in which the user can switch LiDAR:</p>
+<p><img alt="lidar_state" src="../images/lidar_state.png" /></p>
+<p>When the user sets LiDAR mode and the mode switching is completed, the LiDAR
+unit(s) will be in the corresponding state:</p>
+<p><img alt="State_transition" src="../images/state_transition.png" /></p>
+<h2 id="2_control_command">2 Control Command<a class="headerlink" href="#2_control_command" title="Permanent link">#</a></h2>
+<h3 id="21_frame_format">2.1 Frame Format<a class="headerlink" href="#21_frame_format" title="Permanent link">#</a></h3>
+<p>The Protocol Frame is the smallest unit for control command. Format is as
+follows:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Index (byte)</th>
+<th>Size (byte)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sof</td>
+<td>0</td>
+<td>1</td>
+<td>Starting Byte, Fixed to be 0xAA</td>
+</tr>
+<tr>
+<td>version</td>
+<td>1</td>
+<td>1</td>
+<td>Protocol Version, 1 for The Current Version</td>
+</tr>
+<tr>
+<td>length</td>
+<td>2</td>
+<td>2</td>
+<td>Length of The Frame, Max Value: 1400</td>
+</tr>
+<tr>
+<td>cmd_type</td>
+<td>4</td>
+<td>1</td>
+<td>Command Type: <br>0x00: CMD <br>0x01: ACK <br>0x02: MSG</td>
+</tr>
+<tr>
+<td>seq_num</td>
+<td>5</td>
+<td>2</td>
+<td>Frame Sequence Number</td>
+</tr>
+<tr>
+<td>crc_16</td>
+<td>7</td>
+<td>2</td>
+<td>Frame Header Checksum</td>
+</tr>
+<tr>
+<td>data</td>
+<td>9</td>
+<td>n</td>
+<td>Payload Data</td>
+</tr>
+<tr>
+<td>crc_32</td>
+<td>9+n</td>
+<td>4</td>
+<td>Whole Frame Checksum</td>
+</tr>
+</tbody>
+</table>
+<p>Command type description:</p>
+<blockquote>
+<ul>
+<li><strong>CMD (request)</strong>: Actively send data request - need to return a corresponding ACK;</li>
+<li><strong>ACK (response)</strong>: Response to CMD data;</li>
+<li><strong>MSG (message)</strong>: Actively pushed message data - no need to return response data,</li>
+</ul>
+<p>e.g. broadcast data, pushed message when an error occurs;</p>
+</blockquote>
+<p>Initial value of the CRC check:</p>
+<table>
+<thead>
+<tr>
+<th>crc16 initial value</th>
+<th>crc32 initial value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x4c49</td>
+<td>0x564f580a</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22_frame_data">2.2 Frame Data<a class="headerlink" href="#22_frame_data" title="Permanent link">#</a></h3>
+<h4 id="221_data_segment_format">2.2.1 Data Segment Format<a class="headerlink" href="#221_data_segment_format" title="Permanent link">#</a></h4>
+<p>Data segment format in Protocol Frame:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Index (byte)</th>
+<th>Size (byte)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmd_set</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cmd_id</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cmd_data</td>
+<td>2</td>
+<td>Vary by cmd</td>
+</tr>
+</tbody>
+</table>
+<h4 id="222_cmd_set_cmd_id">2.2.2 CMD Set &amp; CMD ID<a class="headerlink" href="#222_cmd_set_cmd_id" title="Permanent link">#</a></h4>
+<p>There are three kinds of CMD sets:</p>
+<blockquote>
+<ul>
+<li><strong>General Command Set</strong>: All of Livox Device support General Command Set including Livox LiDAR and Livox Hub.</li>
+<li><strong>LiDAR Command Set</strong>: Only Livox LiDAR supports LiDAR Command Set.</li>
+<li><strong>Hub Command Set</strong>: Only Livox Hub supports Hub Command Set.</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>CMD Set</th>
+<th>CMD ID</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00 General Command Set</td>
+<td>0x00</td>
+<td>Broadcast Message</td>
+</tr>
+<tr>
+<td></td>
+<td>0x01</td>
+<td>Handshake</td>
+</tr>
+<tr>
+<td></td>
+<td>0x02</td>
+<td>Query Device Information</td>
+</tr>
+<tr>
+<td></td>
+<td>0x03</td>
+<td>Heartbeat</td>
+</tr>
+<tr>
+<td></td>
+<td>0x04</td>
+<td>Start/Stop Sampling</td>
+</tr>
+<tr>
+<td></td>
+<td>0x05</td>
+<td>Change Coordinate System</td>
+</tr>
+<tr>
+<td></td>
+<td>0x06</td>
+<td>Disconnect</td>
+</tr>
+<tr>
+<td></td>
+<td>0x07</td>
+<td>Push Abnormal Status Information</td>
+</tr>
+<tr>
+<td></td>
+<td>0x08</td>
+<td>Configure Static/Dynamic IP</td>
+</tr>
+<tr>
+<td></td>
+<td>0x09</td>
+<td>Get Device IP Information</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0A</td>
+<td>Reboot device</td>
+</tr>
+<tr>
+<td>0x01 LiDAR Command Set</td>
+<td>0x00</td>
+<td>Set Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x01</td>
+<td>Write LiDAR Extrinsic Parameters</td>
+</tr>
+<tr>
+<td></td>
+<td>0x02</td>
+<td>Read LiDAR Extrinsic Parameters</td>
+</tr>
+<tr>
+<td></td>
+<td>0x03</td>
+<td>Turn On/Off Rain/Fog Suppression</td>
+</tr>
+<tr>
+<td></td>
+<td>0x04</td>
+<td>Set Turn On/Off Fan</td>
+</tr>
+<tr>
+<td></td>
+<td>0x05</td>
+<td>Get Turn On/Off Fan State</td>
+</tr>
+<tr>
+<td></td>
+<td>0x06</td>
+<td>Set LiDAR Return Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x07</td>
+<td>Get LiDAR Return Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x08</td>
+<td>Set IMU Data Push Frequency</td>
+</tr>
+<tr>
+<td></td>
+<td>0x09</td>
+<td>Get IMU Data Push Frequency</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0A</td>
+<td>Update UTC synchronization time</td>
+</tr>
+<tr>
+<td>0x02 Hub Command Set</td>
+<td>0x00</td>
+<td>Query Connected LiDAR Device</td>
+</tr>
+<tr>
+<td></td>
+<td>0x01</td>
+<td>Set LiDAR Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x02</td>
+<td>Turn On/Off Designated Slot Power</td>
+</tr>
+<tr>
+<td></td>
+<td>0x03</td>
+<td>Write LiDAR Extrinsic Parameters</td>
+</tr>
+<tr>
+<td></td>
+<td>0x04</td>
+<td>Read LiDAR Extrinsic Parameters</td>
+</tr>
+<tr>
+<td></td>
+<td>0x05</td>
+<td>Query LiDAR Device Status</td>
+</tr>
+<tr>
+<td></td>
+<td>0x06</td>
+<td>Turn On/Off Hub Calculation of Extrinsic Parameters</td>
+</tr>
+<tr>
+<td></td>
+<td>0x07</td>
+<td>Turn On/Off LiDAR Rain/Fog Suppression</td>
+</tr>
+<tr>
+<td></td>
+<td>0x08</td>
+<td>Query Hub Slot Power Status</td>
+</tr>
+<tr>
+<td></td>
+<td>0x09</td>
+<td>Set LiDAR Turn On/Off Fan</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0A</td>
+<td>Get LiDAR Turn On/Off Fan State</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0B</td>
+<td>Set LiDAR Return Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0C</td>
+<td>Get LiDAR Return Mode</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0D</td>
+<td>Set LiDAR IMU Data Push Frequency</td>
+</tr>
+<tr>
+<td></td>
+<td>0x0E</td>
+<td>Get LiDAR IMU Data Push Frequency</td>
+</tr>
+<tr>
+<td>## 2.3 SDK Connection</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>In the process of communication, LiDAR or Hub are defined as slave, and the
+computer which receives point cloud data is defined as master.
+The communication flow between master and slave is as follows:
+1. When the slave is powered on, it broadcasts the device information data to
+port 55000 of the master using source port 65000;
+2. After receiving the broadcast data, the master sends a connection request to
+the slave port 65000, which contains the source port information;
+3. The slave replies ACK data to this source port after receiving the master's
+connection request;
+4. When the user receives ACK data, the handshake is completed. It can start
+sending heartbeat data to maintain the connection, and transmit commands and
+data.</p>
+<p><strong>NOTE</strong>: <em>The Livox LiDAR/Hub will re-broadcast if heartbeat is timeout.</em></p>
+<p>Flow Chart:</p>
+<p><img alt="connection_flow_chart" src="../images/connection_flow_chart.png" /></p>
+<h2 id="3_sample_data_package">3 Sample Data Package<a class="headerlink" href="#3_sample_data_package" title="Permanent link">#</a></h2>
+<h3 id="31_package_format">3.1 Package Format<a class="headerlink" href="#31_package_format" title="Permanent link">#</a></h3>
+<p>Point cloud data format output by LiDAR:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Index (byte)</th>
+<th>Size (byte)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>0</td>
+<td>1</td>
+<td>Packet Protocol Version, 5 for the Current Version</td>
+</tr>
+<tr>
+<td>slot_id</td>
+<td>1</td>
+<td>1</td>
+<td>ID of the Slot Connecting LiDAR Device:<br> If LiDAR connects directly to computer without Hub, default 1;<br> If LiDAR connects to computer through Hub,<br> then the ‘slot_id’ is the corresponding slot number of the hub (range: 1 ~ 9);</td>
+</tr>
+<tr>
+<td>LiDAR_id</td>
+<td>2</td>
+<td>1</td>
+<td>LiDAR ID:<br> 1: Mid-100 Left / Mid-40 / Tele-15 / Horizon<br> 2: Mid-100 Middle<br> 3: Mid-100 Right<br><img alt="connection_flow_chart" src="../images/Livox-Mid100.png" /></td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>3</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>4</td>
+<td>4</td>
+<td>LiDAR Status Indicator Information, For details, see 3.4</td>
+</tr>
+<tr>
+<td>timestamp_type</td>
+<td>8</td>
+<td>1</td>
+<td>Timestamp Type, For details, see <a href="#timestamp">3.2</a></td>
+</tr>
+<tr>
+<td>data_type</td>
+<td>9</td>
+<td>1</td>
+<td>Data Type, For details, see <a href="#data_type">3.3</a></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>10</td>
+<td>8</td>
+<td>Nanosecond or UTC Format Timestamp, For details, see 3.2</td>
+</tr>
+<tr>
+<td>data</td>
+<td>18</td>
+<td>--</td>
+<td>Data information, For details, see <a href="#data_type">3.3</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32_time_stamp_timestamp">3.2 Time Stamp {#timestamp}<a class="headerlink" href="#32_time_stamp_timestamp" title="Permanent link">#</a></h3>
+<p>LiDAR system supports three synchronization modes: 
+- PTP: IEEE 1588v2.0 PTP network protocol synchronization.
+- GPS: In order to synchronize with GPS, LiDAR/Hub have to receive PPS and UTC timestamps. For Horizon and Tele-15, LiDAR unit can receive UTC timestamps in control command over Ethernet. Livox Hub unit can receive UTC timestamps in $GPRMC message over RS485 serial port.
+- PPS: Pulse synchronization (only supported by LiDAR).</p>
+<p><strong>Synchronization Priority:</strong> PTP &gt; GPS &gt; PPS, when there are multiple synchronization sources in the system, the synchronization mode with the highest priority will be selected. If the highest priority synchronization source is offline, the timestamp type will continue to be maintained and will not fall back to the lower priority, and <code>time_sync_status</code> in <a href="# 3.5.1 LiDAR Status Code">Status Code</a> will be set to 4(the highest priority synchronization signal is abnormal).</p>
+<p>Each packet contains a timestamp indicating the time of the first point in the packet.The time interval of each point in the packet is equal.  </p>
+<p>Taking Mid-40 as an example, the sampling frequency is 100 KHz , and the interval of each point is 10 us.</p>
+<table>
+<thead>
+<tr>
+<th>Point NUM</th>
+<th>Timestamp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>T1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>T1 + 10 us</td>
+</tr>
+<tr>
+<td>3</td>
+<td>T1 + 20 us</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>100</td>
+<td>T1 + 990us</td>
+</tr>
+</tbody>
+</table>
+<p>Timestamp Type:</p>
+<table>
+<thead>
+<tr>
+<th>Timestamp Type</th>
+<th>Source</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>No sync source</td>
+<td>uint64_t</td>
+<td>Unit: ns</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PTP</td>
+<td>uint64_t</td>
+<td>Unit: ns</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Reserved</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>GPS</td>
+<td>UTC</td>
+<td>UTC</td>
+</tr>
+<tr>
+<td>4</td>
+<td>PPS</td>
+<td>int64_t</td>
+<td>Unit: ns, only supported by LiDAR</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Timestamp Type 0</strong> </p>
+<p>When there is no synchronization signal in the system, the time stamp indicates
+the time when device is powered on.</p>
+<p><strong>Timestamp Type 1</strong></p>
+<p>IEEE 1588v2.0 PTP network protocol synchronization 1588 network synchronization
+mode has the highest priority.</p>
+<p><strong>Timestamp Type 3</strong></p>
+<p>A timestamp of 3 indicates LIDAR/Hub unit is sync with GPS. For LiDAR unit, PPS in RS485 level and UTC timestamp through SDK control command (refer to <a href="#_0xA_Update_UTC"><strong>Update UTC synchronization time</strong></a> for details) are needed. The sequence diagram is as follows:
+<img alt="sequence_diagram" src="../images/sequence_diagram_Lidar.png" /></p>
+<p>For Livox Hub unit, PPS and $GPRMC message in RS485 level are needed. The sequence
+diagram is as follows:</p>
+<p><img alt="sequence_diagram" src="../images/sequence_diagram_Hub.png" /></p>
+<p>An example $GPRMC message is shown below:
+$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A</p>
+<table>
+<thead>
+<tr>
+<th>123519</th>
+<th>Fix taken at 12:35:19 UTC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Status A=active or V=Void.</td>
+</tr>
+<tr>
+<td>4807.038</td>
+<td>Current Latitude</td>
+</tr>
+<tr>
+<td>N</td>
+<td>North/South</td>
+</tr>
+<tr>
+<td>01131.000</td>
+<td>Current Longitude</td>
+</tr>
+<tr>
+<td>E</td>
+<td>East/West</td>
+</tr>
+<tr>
+<td>022.4</td>
+<td>Speed in knots</td>
+</tr>
+<tr>
+<td>084.4</td>
+<td>True course</td>
+</tr>
+<tr>
+<td>230394</td>
+<td>Date stamp, 23rd of March 1994</td>
+</tr>
+<tr>
+<td>003.1</td>
+<td>Magnetic Variation</td>
+</tr>
+<tr>
+<td>W</td>
+<td>West/East</td>
+</tr>
+<tr>
+<td>*6A</td>
+<td>The checksum data, always begins with *</td>
+</tr>
+</tbody>
+</table>
+<p>The timestamp in cloud point data package UTC time format:</p>
+<table>
+<thead>
+<tr>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+<th>Byte 4 ~ 7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Year</td>
+<td>Month</td>
+<td>Day</td>
+<td>Hour</td>
+<td>Offset within the Hour, Unit: us</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Timestamp Type 4</strong></p>
+<p>PPS synchronization source, using the RS485 level. The sequence diagram is as follows. The rising edge of PPS will reset the timestamp to zero. So the timestamp of point cloud data indicates the offset between the point cloud sampling and the PPS rising edge. In the case of IMU packets, the time offset may be negative due to the compensation delay.
+<img alt="RS485_sequence_digram" src="../images/RS485_sequence_digram.png" /></p>
+<h3 id="33_point_cloudimu_data_data_type">3.3 Point Cloud/IMU Data {#data_type}<a class="headerlink" href="#33_point_cloudimu_data_data_type" title="Permanent link">#</a></h3>
+<p>There are N samples in each data package. N depends on the user's configuration. The sample data can be one of the following formats.</p>
+<p>Data Type:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Sample   Type</th>
+<th>Return Mode</th>
+<th>Coordinate Format</th>
+<th>N</th>
+<th>Data Frequency</th>
+<th>Supported Devices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Point Cloud Data</td>
+<td>Single Return Mode</td>
+<td>Cartesian Coordinate</td>
+<td>100</td>
+<td>100,000 points/s</td>
+<td>Mid-40</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Point Cloud Data</td>
+<td>Single Return Mode</td>
+<td>Spherical Coordinate</td>
+<td>100</td>
+<td>100,000 points/s</td>
+<td>Mid-40</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Point Cloud Data</td>
+<td>Single Return Mode</td>
+<td>Cartesian Coordinate</td>
+<td>96</td>
+<td>240,000 points/s</td>
+<td>Horizon<br>Tele-15</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Point Cloud Data</td>
+<td>Single Return Mode</td>
+<td>Spherical Coordinate</td>
+<td>96</td>
+<td>240,000 points/s</td>
+<td>Horizon<br>Tele-15</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Point Cloud Data</td>
+<td>Dual Return Mode</td>
+<td>Cartesian Coordinate</td>
+<td>48</td>
+<td>480,000 points/s</td>
+<td>Horizon<br>Tele-15</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Point Cloud Data</td>
+<td>Dual Return Mode</td>
+<td>Spherical Coordinate</td>
+<td>48</td>
+<td>480,000 points/s</td>
+<td>Horizon<br>Tele-15</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IMU Data</td>
+<td>---</td>
+<td>---</td>
+<td>1</td>
+<td>see <a href="#imu_freq">IMU Data Push Frequency</a></td>
+<td>Horizon<br>Tele-15</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 0</strong></p>
+<p>Single return cartesian coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>0</td>
+<td>int32_t</td>
+<td>X axis, Unit: mm</td>
+</tr>
+<tr>
+<td>y</td>
+<td>4</td>
+<td>int32_t</td>
+<td>Y axis, Unit: mm</td>
+</tr>
+<tr>
+<td>z</td>
+<td>8</td>
+<td>int32_t</td>
+<td>Z axis, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity</td>
+<td>12</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 1</strong></p>
+<p>Single return spherical coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>depth</td>
+<td>0</td>
+<td>uint32_t</td>
+<td>Depth, Unit: mm</td>
+</tr>
+<tr>
+<td>theta</td>
+<td>4</td>
+<td>uint16_t</td>
+<td>Zenith angle[0, 18000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>phi</td>
+<td>6</td>
+<td>uin16_t</td>
+<td>Azimuth[0, 36000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>reflectivity</td>
+<td>8</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 2</strong></p>
+<p>Single return cartesian coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>0</td>
+<td>int32_t</td>
+<td>X axis, Unit: mm</td>
+</tr>
+<tr>
+<td>y</td>
+<td>4</td>
+<td>int32_t</td>
+<td>Y axis, Unit: mm</td>
+</tr>
+<tr>
+<td>z</td>
+<td>8</td>
+<td>int32_t</td>
+<td>Z axis, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity</td>
+<td>12</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>13</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 3</strong></p>
+<p>Single return spherical coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>depth</td>
+<td>0</td>
+<td>uint32_t</td>
+<td>Depth, Unit: mm</td>
+</tr>
+<tr>
+<td>theta</td>
+<td>4</td>
+<td>uint16_t</td>
+<td>Zenith angle[0, 18000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>phi</td>
+<td>6</td>
+<td>uin16_t</td>
+<td>Azimuth[0, 36000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>reflectivity</td>
+<td>8</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>9</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 4</strong></p>
+<p>Dual return Cartesian coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1</td>
+<td>0</td>
+<td>int32_t</td>
+<td>X axis, Unit: mm</td>
+</tr>
+<tr>
+<td>y1</td>
+<td>4</td>
+<td>int32_t</td>
+<td>Y axis, Unit: mm</td>
+</tr>
+<tr>
+<td>z1</td>
+<td>8</td>
+<td>int32_t</td>
+<td>Z axis, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity1</td>
+<td>12</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag1</td>
+<td>13</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+<tr>
+<td>x2</td>
+<td>14</td>
+<td>int32_t</td>
+<td>X axis, Unit: mm</td>
+</tr>
+<tr>
+<td>y2</td>
+<td>18</td>
+<td>int32_t</td>
+<td>Y axis, Unit: mm</td>
+</tr>
+<tr>
+<td>z2</td>
+<td>22</td>
+<td>int32_t</td>
+<td>Z axis, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity2</td>
+<td>26</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag2</td>
+<td>27</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 5</strong></p>
+<p>Dual return spherical coordinate data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>theta</td>
+<td>0</td>
+<td>uint16_t</td>
+<td>Zenith angle[0, 18000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>phi</td>
+<td>2</td>
+<td>uin16_t</td>
+<td>Azimuth[0, 36000], Unit: 0.01 degree</td>
+</tr>
+<tr>
+<td>depth1</td>
+<td>4</td>
+<td>uint32_t</td>
+<td>Depth, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity1</td>
+<td>8</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag1</td>
+<td>9</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+<tr>
+<td>depth2</td>
+<td>10</td>
+<td>uint32_t</td>
+<td>Depth, Unit: mm</td>
+</tr>
+<tr>
+<td>reflectivity2</td>
+<td>14</td>
+<td>uin8_t</td>
+<td>Reflectivity</td>
+</tr>
+<tr>
+<td>tag2</td>
+<td>15</td>
+<td>uint8_t</td>
+<td>For details, see <a href="#tag_info">tag information</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data Type 6</strong></p>
+<p>IMU data format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gyro_x</td>
+<td>0</td>
+<td>float</td>
+<td>Unit: rad/s</td>
+</tr>
+<tr>
+<td>gyro_y</td>
+<td>4</td>
+<td>float</td>
+<td>Unit: rad/s</td>
+</tr>
+<tr>
+<td>gyro_z</td>
+<td>8</td>
+<td>float</td>
+<td>Unit: rad/s</td>
+</tr>
+<tr>
+<td>acc_x</td>
+<td>12</td>
+<td>float</td>
+<td>Unit: g</td>
+</tr>
+<tr>
+<td>acc_y</td>
+<td>16</td>
+<td>float</td>
+<td>Unit: g</td>
+</tr>
+<tr>
+<td>acc_z</td>
+<td>20</td>
+<td>float</td>
+<td>Unit: g</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34_tag_information_tag_info">3.4 Tag Information {#tag_info}<a class="headerlink" href="#34_tag_information_tag_info" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7:6</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>5:4</td>
+<td>Return Number: <br>00: Return 0<br>01: Return 1<br>02: Return 2<br>03: Return 4</td>
+</tr>
+<tr>
+<td>3:2</td>
+<td>Point property based on return intensity: <br>00: Normal<br>01: High confidence level of the noise<br>02: Moderate confidence level of the noise<br>03: Reserved</td>
+</tr>
+<tr>
+<td>1:0</td>
+<td>Point property based on spatial position:<br>0: Normal <br>1: High confidence level of the noise<br>2: Moderate confidence level of the noise<br>3: Low confidence level of the noise</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>For details, see Livox Horizon/Tele-15 user manual.</p>
+</blockquote>
+<h3 id="35_status_code">3.5 Status Code<a class="headerlink" href="#35_status_code" title="Permanent link">#</a></h3>
+<h4 id="351_lidar_status_code">3.5.1 LiDAR Status Code<a class="headerlink" href="#351_lidar_status_code" title="Permanent link">#</a></h4>
+<p>LiDAR status_code consists of 32 bits, which has the following meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Data</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bit0:1</td>
+<td>temp_status</td>
+<td>0: Temperature in Normal State <br>1: High or Low <br>2: Extremely High or Extremely Low</td>
+</tr>
+<tr>
+<td>Bit2:3</td>
+<td>volt_status</td>
+<td>Voltage Status of Internal Module<br> 0: Voltage in Normal State <br>1: High <br>2: Extremely High</td>
+</tr>
+<tr>
+<td>Bit4:5</td>
+<td>motor_status</td>
+<td>0: Motor in Normal State <br>1: Motor in Warning State <br>2: Motor in Error State, Unable to Work</td>
+</tr>
+<tr>
+<td>Bit6:7</td>
+<td>dirty_warn</td>
+<td>0: Not Dirty or Blocked <br>1: Dirty or Blocked</td>
+</tr>
+<tr>
+<td>Bit8</td>
+<td>firmware_status</td>
+<td>0: Firmware is OK <br>1: Firmware is Abnormal, Need to be Upgraded</td>
+</tr>
+<tr>
+<td>Bit9</td>
+<td>pps_status</td>
+<td>0: No PPS Signal <br>1: PPS Signal is OK</td>
+</tr>
+<tr>
+<td>Bit10</td>
+<td>device_status</td>
+<td>0: Normal <br>1: Warning for Approaching the End of Service Life</td>
+</tr>
+<tr>
+<td>Bit11</td>
+<td>fan_status</td>
+<td>0: Fan in Normal State <br>1: Fan in Warning State<br><strong>Supported devices:</strong> <br/>Mid-40/03.07.0000+ <br/>Horizon/06.04.0000+ <br/>Tele-15/07.03.0000+</td>
+</tr>
+<tr>
+<td>Bit12</td>
+<td>self_heating</td>
+<td>0: Low Temperature Self Heating On<br>1: Low Temperature Self Heating Off<br><strong>Supported devices:</strong> <br/>Horizon/06.04.0000+ <br/>Tele-15/07.03.0000+</td>
+</tr>
+<tr>
+<td>Bit13</td>
+<td>ptp_status</td>
+<td>0: No 1588 Signal <br>1: 1588 Signal is OK</td>
+</tr>
+<tr>
+<td>Bit14:16</td>
+<td>time_sync_status</td>
+<td>0: System dose not start time synchronization <br>1: Using PTP 1588 synchronization <br>2: Using GPS synchronization <br>3: Using PPS synchronization <br>4: System time synchronization is abnormal (The highest priority synchronization signal is abnormal)</td>
+</tr>
+<tr>
+<td>Bit17:29</td>
+<td>RSVD</td>
+<td></td>
+</tr>
+<tr>
+<td>Bit30:31</td>
+<td>system_status</td>
+<td>0: Normal <br>1: Warning <br>Any of the following situations will trigger warning: <br>  1.1 <code>temp_status</code> is 1;<br>  1.2 <code>volt_status</code> is 1;<br>  1.3 <code>motor_status</code> is 1;<br>  1.4 <code>dirty_warn</code> is 1;<br>  1.5 <code>device_status</code> is 1; <br>  1.6 <code>fan_status</code> is 1;<br>2: Error <br>Causes the LiDAR to Shut Down and Enter the Error State. <br>Any of the following situations will trigger error: <br>  2.1 <code>temp_status</code> is 2;<br>  2.2 <code>volt_status</code> is 2;<br>  2.3 <code>motor_status</code> is 2;<br>  2.4 <code>firmware_status</code> is 1;</td>
+</tr>
+</tbody>
+</table>
+<h4 id="352_hub_status_code">3.5.2 Hub Status Code<a class="headerlink" href="#352_hub_status_code" title="Permanent link">#</a></h4>
+<p>Hub Status Code consists of 32 bits, which has the following meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Data</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bit0:1</td>
+<td>sync_status</td>
+<td>0: No synchronization signal <br>1: 1588 synchronization <br>2: GPS synchronization<br>3: System time synchronization is abnormal (The highest priority synchronization signal is abnormal)</td>
+</tr>
+<tr>
+<td>Bit2:3</td>
+<td>temp_status</td>
+<td>0: Temperature in Normal State <br>1: High or Low <br>2: Extremely High or Extremely Low</td>
+</tr>
+<tr>
+<td>Bit4</td>
+<td>LiDAR_status</td>
+<td>0: LiDAR State is Normal <br>1: LiDAR State is Abnormal</td>
+</tr>
+<tr>
+<td>Bit5</td>
+<td>LiDAR_link_status</td>
+<td>0: LiDAR Connection is Normal <br>1: LiDAR Connection is Abnormal</td>
+</tr>
+<tr>
+<td>Bit6</td>
+<td>firmware_status</td>
+<td>0: LiDAR Firmware is OK <br>1: LiDAR Firmware is Abnormal, Need to be Upgraded</td>
+</tr>
+<tr>
+<td>Bit7:29</td>
+<td>RSVD</td>
+<td></td>
+</tr>
+<tr>
+<td>Bit30:31</td>
+<td>system_status</td>
+<td>0: Normal <br>1: Warning <br>Any of the following situations will trigger warning:<br>  1.1 <code>temp_status</code> is 1;<br>2: Error <br>Any of the following situations will trigger error: <br>  2.1 <code>temp_status</code> is 2;<br>  2.2 <code>LiDAR_status</code> is 1;<br>  2.3 <code>firmware_status</code> is 1;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4_control_command_detail">4 Control Command Detail<a class="headerlink" href="#4_control_command_detail" title="Permanent link">#</a></h2>
+<h3 id="41_general_cmd_set">4.1 General CMD Set<a class="headerlink" href="#41_general_cmd_set" title="Permanent link">#</a></h3>
+<h4 id="0x00_broadcast_message">0x00 Broadcast Message<a class="headerlink" href="#0x00_broadcast_message" title="Permanent link">#</a></h4>
+<p>message</p>
+<table>
+<thead>
+<tr>
+<th>MSG</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>broadcast_code</td>
+<td>2</td>
+<td>uint8_t[16]</td>
+<td>Device Broadcast Code, C-Style string end with '\0' <br>The Broadcast Code of Each Device is UNIQUE.</td>
+</tr>
+<tr>
+<td></td>
+<td>dev_type</td>
+<td>18</td>
+<td>uint8_t</td>
+<td>Device Type:<br> 0: Livox Hub <br>1: Mid-40 <br>2: Tele-15 <br>3: Horizon</td>
+</tr>
+<tr>
+<td></td>
+<td>reserved</td>
+<td>19</td>
+<td>uint16_t</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x01_handshake">0x01 Handshake<a class="headerlink" href="#0x01_handshake" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>user_ip</td>
+<td>2</td>
+<td>uint8_t[4]</td>
+<td>Host IP Address<br> Example: AA.BB.CC.DD<br> user_ip[0] = AA<br> user_ip[1] = BB<br> user_ip[2] = CC<br> user_ip[3] = DD</td>
+</tr>
+<tr>
+<td></td>
+<td>data_port</td>
+<td>6</td>
+<td>uint16_t</td>
+<td>Host Point Cloud Data UDP Destination Port</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_port</td>
+<td>8</td>
+<td>uint16_t</td>
+<td>Host Control Command UDP Destination Port</td>
+</tr>
+<tr>
+<td></td>
+<td>imu_port</td>
+<td>10</td>
+<td>uint16_t</td>
+<td>Host Control IMU UDP Destination Port,<br><strong>Supported Devices:</strong><br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code:<br> 0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x02_query_device_information">0x02 Query Device Information<a class="headerlink" href="#0x02_query_device_information" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x02</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code:<br> 0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>version</td>
+<td>3</td>
+<td>uint8_t[4]</td>
+<td>Firmware Version:<br> Example: AA.BB.CC.DD<br> version[0] = AA<br> version[1] = BB<br> version[2] = CC<br> version[3] = DD</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x03_heartbeat">0x03 Heartbeat<a class="headerlink" href="#0x03_heartbeat" title="Permanent link">#</a></h4>
+<p>The host needs to send request data at a frequency of 1 Hz to maintain normal
+connection with the device.</p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>work_state</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>LiDAR State: <br>0x00: Initializing <br>0x01: Normal <br>0x02: Power-Saving <br>0x03: Standby <br>0x04: Error <br>Hub State: <br>0x00: Initializing <br>0x01: Normal <br>0x04: Error</td>
+</tr>
+<tr>
+<td></td>
+<td>feature_msg</td>
+<td>4</td>
+<td>uint8_t</td>
+<td>LiDAR Feature Message:<br> Bit0: Rain/Fog Suppression Switch <br>0x00: Turn Off <br>0x01: Turn On <br>Bit1 ~ Bit7: Reserved <br><strong>Hub is Reserved</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>ack_msg</td>
+<td>5</td>
+<td>uint32_t</td>
+<td>ACK Message:<br> Related to ‘work_state’:<br> work_state is 0x00: Initialization Progress <br>work_state is other: Status Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x04_startstop_sampling">0x04 Start/Stop Sampling<a class="headerlink" href="#0x04_startstop_sampling" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+<tr>
+<td></td>
+<td>sample_ctrl</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>0x00: Stop Sampling <br>0x01: Start Sampling</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x05_change_coordinate_system">0x05 Change Coordinate System<a class="headerlink" href="#0x05_change_coordinate_system" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+<tr>
+<td></td>
+<td>coordinate_type</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>0x00: Cartesian Coordinate <br>0x01: Spherical Coordinate</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong>  <em>This cmd only takes effect in RAM, the coordinate system will reset to Cartesian after reboot .</em></p>
+<h4 id="0x06_disconnect">0x06 Disconnect<a class="headerlink" href="#0x06_disconnect" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x07_push_abnormal_status">0x07 Push Abnormal Status<a class="headerlink" href="#0x07_push_abnormal_status" title="Permanent link">#</a></h4>
+<p>message</p>
+<p>When error occurs, the message is immediately pushed at 10Hz to report the
+abnormal information.</p>
+<table>
+<thead>
+<tr>
+<th>MSG</th>
+<th>name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+<tr>
+<td></td>
+<td>status_code</td>
+<td>2</td>
+<td>uint32_t</td>
+<td>Status Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x08_configure_staticdynamic_ip">0x08 Configure Static/Dynamic IP<a class="headerlink" href="#0x08_configure_staticdynamic_ip" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+<tr>
+<td></td>
+<td>ip_mode</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>0x00: Dynamic IP <br>0x01: Static IP</td>
+</tr>
+<tr>
+<td></td>
+<td>ip_addr</td>
+<td>3</td>
+<td>uint8_t[4]</td>
+<td>For details, see: <strong>IP Address Information</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>net_mask</td>
+<td>7</td>
+<td>uint8_t[4]</td>
+<td>IPV4 netmask<br> IP netmask is valid when ‘ip_mode’ is 0x01(Static IP)<br> Example: AA.BB.CC.DD<br> net_mask[0]: AA<br> net_mask[1]: BB<br> net_mask[2]: CC<br> net_mask[3]: DD<br><br><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+</td>
+</tr>
+<tr>
+<td></td>
+<td>gw_addr</td>
+<td>11</td>
+<td>uint8_t[4]</td>
+<td>IPV4 gateway<br> IP gateway is valid when ‘ip_mode’ is 0x01(Static IP)<br> Example: AA.BB.CC.DD<br> gw_addr[0]: AA<br> gw_addr[1]: BB<br> gw_addr[2]: CC<br> gw_addr[3]: DD<br><br><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+</td>
+</tr>
+</tbody>
+</table>
+<p>IP Address Information:</p>
+<table>
+<thead>
+<tr>
+<th>Device Type/Firmware version</th>
+<th>IP Address Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Livox Hub<br/>Mid-40<br/></td>
+<td>IPV4 Address<br/> IP address is valid when ‘ip_mode’ is 0x01(Static IP) <br/>ip_addr[0]: 192<br/> ip_addr[1]: 168<br/> ip_addr[2]: 1<br/> ip_addr[3]: Range is as follows<br/> Last bit of broadcast code:<br/> 1: 11 ~ 80<br/> 2: 81 ~ 150<br/> 3: 151 ~ 220</td>
+</tr>
+<tr>
+<td>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+ <br></td>
+<td>IPV4 Address<br/> IP address is valid when ‘ip_mode’ is 0x01(Static IP) <br/>ip_addr[0]:1 ~ 126 &amp;&amp; 127 ~ 223<br/> ip_addr[1]: 0 ~ 255<br/> ip_addr[2]: 0 ~ 255<br/> ip_addr[3]: 0 ~ 255</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong>  <em>For IP details, see:<a href="https://en.wikipedia.org/wiki/IP_address">IP_address</a>.</em></p>
+<h4 id="0x09_get_device_ip_information">0x09 Get Device IP Information<a class="headerlink" href="#0x09_get_device_ip_information" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>ip_mode</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>0x00: Dynamic IP <br>0x01: Static IP</td>
+</tr>
+<tr>
+<td></td>
+<td>ip_addr</td>
+<td>4</td>
+<td>uint8_t[4]</td>
+<td>Device IPV4 Address<br>Example: AA.BB.CC.DD<br>user_ip[0] = AA<br>user_ip[1] = BB<br>user_ip[2] = CC<br>user_ip[3] = DD</td>
+</tr>
+<tr>
+<td></td>
+<td>net_mask</td>
+<td>8</td>
+<td>uint8_t[4]</td>
+<td>Device IPV4 netmask<br>Example: AA.BB.CC.DD<br>user_netmask[0] = AA<br>user_netmask[1] = BB<br>user_netmask[2] = CC<br>user_netmask[3] = DD <br><strong>Supported devices:</strong> <br>Livox Hub/08.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+</td>
+</tr>
+<tr>
+<td></td>
+<td>gw</td>
+<td>12</td>
+<td>uint8_t[4]</td>
+<td>Device IPV4 gateway<br>Example: AA.BB.CC.DD<br>user_gw[0] = AA<br>user_gw[1] = BB<br>user_gw[2] = CC<br>user_gw[3] = DD <br><strong>Supported devices:</strong> <br>Livox Hub/08.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0a_reboot_device">0x0A Reboot Device<a class="headerlink" href="#0x0a_reboot_device" title="Permanent link">#</a></h4>
+<p><strong>Supported devices/firmware version:</strong> <br>Livox Hub/08.07.0000+ <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>timeout</td>
+<td>2</td>
+<td>uint16_t</td>
+<td>Reboot device delay time</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>General Command: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42_lidar_cmd_set">4.2 LiDAR CMD Set<a class="headerlink" href="#42_lidar_cmd_set" title="Permanent link">#</a></h3>
+<h4 id="0x00_set_mode">0x00 Set Mode<a class="headerlink" href="#0x00_set_mode" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>LiDAR_mode</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>LiDAR Mode:<br>User can configure as follow:<br>0x01: Normal Mode <br>0x02: Power-Saving Mode <br>0x03: Standby Mode</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th> ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code:<br> 0x00: Success <br>0x01: Fail <br>0x02: Switching</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x01_write_lidar_extrinsic_parameters">0x01 Write LiDAR Extrinsic Parameters<a class="headerlink" href="#0x01_write_lidar_extrinsic_parameters" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>roll</td>
+<td>2</td>
+<td>float32</td>
+<td>Roll Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>pitch</td>
+<td>6</td>
+<td>float32</td>
+<td>Pitch Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>yaw</td>
+<td>10</td>
+<td>float32</td>
+<td>Yaw Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>14</td>
+<td>int32_t</td>
+<td>X Translation, Unit: mm</td>
+</tr>
+<tr>
+<td></td>
+<td>y</td>
+<td>18</td>
+<td>int32_t</td>
+<td>Y Translation, Unit: mm</td>
+</tr>
+<tr>
+<td></td>
+<td>z</td>
+<td>22</td>
+<td>int32_t</td>
+<td>Z Translation, Unit: mm</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x02_read_lidar_extrinsic_parameters">0x02 Read LiDAR Extrinsic Parameters<a class="headerlink" href="#0x02_read_lidar_extrinsic_parameters" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x02</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td> LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td> Command ID: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>roll</td>
+<td>3</td>
+<td>float32</td>
+<td>Roll Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>pitch</td>
+<td>7</td>
+<td>float32</td>
+<td>Pitch Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>yaw</td>
+<td>11</td>
+<td>float32</td>
+<td>Yaw Angle, Unit: degree</td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>15</td>
+<td>int32_t</td>
+<td>X Translation, Unit: mm</td>
+</tr>
+<tr>
+<td></td>
+<td>y</td>
+<td>19</td>
+<td>int32_t</td>
+<td>Y Translation, Unit: mm</td>
+</tr>
+<tr>
+<td></td>
+<td>z</td>
+<td>23</td>
+<td>int32_t</td>
+<td>Z Translation, Unit: mm</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x03_turn_onoff_rainfog_suppression">0x03 Turn On/Off Rain/Fog Suppression<a class="headerlink" href="#0x03_turn_onoff_rainfog_suppression" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40</p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+<tr>
+<td></td>
+<td>state</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Turn On/Off Rain/Fog Suppression:<br>0x00: Turn Off <br>0x01: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x04_set_turn_onoff_fan">0x04 Set Turn On/Off Fan<a class="headerlink" href="#0x04_set_turn_onoff_fan" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+<tr>
+<td></td>
+<td>state</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Turn On/Off Fan:<br>0x00: Turn Off <br>0x01: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail<br>This configuration is saved in Flash</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x05_get_turn_onoff_fan_state">0x05 Get Turn On/Off Fan State<a class="headerlink" href="#0x05_get_turn_onoff_fan_state" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong>  <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>state</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Turn On/Off Fan State: <br>0x00: Turn Off <br>0x01: Turn On</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x06_set_lidar_return_mode">0x06 Set LiDAR Return Mode<a class="headerlink" href="#0x06_set_lidar_return_mode" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+<tr>
+<td></td>
+<td>mode</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Mode:<br>0x00: Single Return First <br>0x01: Single Return Strongest <br>0x02: Dual Return</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail<br>This configuration is saved in Flash</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x07_get_lidar_return_mode">0x07 Get LiDAR Return Mode<a class="headerlink" href="#0x07_get_lidar_return_mode" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong>  <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>mode</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Return Mode:<br>0x00: Single Return First <br>0x01: Single Return Strongest <br>0x02: Dual Return</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x08_set_imu_data_push_frequency_imu_freq">0x08 Set IMU Data Push Frequency {#imu_freq}<a class="headerlink" href="#0x08_set_imu_data_push_frequency_imu_freq" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+<tr>
+<td></td>
+<td>frequency</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>IMU Data Push Frequency:<br>0x00: 0Hz(Close IMU push) <br>0x01: 200Hz</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail<br>This configuration is saved in Flash.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x09_get_imu_data_push_frequency">0x09 Get IMU Data Push Frequency<a class="headerlink" href="#0x09_get_imu_data_push_frequency" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>frequency</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>IMU Data Push Frequency:<br>0x00: 0Hz(Close IMU Data Push) <br>0x01: 200Hz</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0a_update_utc_synchronize_time_utc_cmd">0x0A Update UTC synchronize time {#utc_cmd}<a class="headerlink" href="#0x0a_update_utc_synchronize_time_utc_cmd" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>year</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>UTC Year:<br>0 is 2000 year <br>255 is 2255 year</td>
+</tr>
+<tr>
+<td></td>
+<td>month</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>UTC Month: Range is 1-12</td>
+</tr>
+<tr>
+<td></td>
+<td>day</td>
+<td>4</td>
+<td>uint8_t</td>
+<td>UTC Day: Range is 1-31</td>
+</tr>
+<tr>
+<td></td>
+<td>hour</td>
+<td>5</td>
+<td>uint8_t</td>
+<td>UTC Hour: Range is 0-23</td>
+</tr>
+<tr>
+<td></td>
+<td>microsecond</td>
+<td>6</td>
+<td>uint32_t</td>
+<td>1 Hour Microsecond Offset</td>
+</tr>
+<tr>
+<td>response</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Command: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43_hub_cmd_set">4.3 Hub CMD SET<a class="headerlink" href="#43_hub_cmd_set" title="Permanent link">#</a></h3>
+<h4 id="0x00_query_connected_lidar_device">0x00 Query Connected LiDAR Device<a class="headerlink" href="#0x00_query_connected_lidar_device" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x00</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x00</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR Connected to the Hub Range: 0 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>info_list</td>
+<td>4</td>
+<td>--</td>
+<td>Device Information List of Connected LiDAR</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘info_list’, each LiDAR device information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>dev_type</td>
+<td>16</td>
+<td>uint8_t</td>
+<td>Device Type:<br> 1: Mid-40 <br>2: Tele-15 <br>3: Horizon</td>
+</tr>
+<tr>
+<td>version</td>
+<td>17</td>
+<td>uint8_t[4]</td>
+<td>LiDAR Firmware Version <br>Example: AA.BB.CC.DD <br>version[0] = AA <br>version[1] = BB <br>version[2] = CC <br>version[3] = DD</td>
+</tr>
+<tr>
+<td>slot_id</td>
+<td>21</td>
+<td>uin8_t</td>
+<td>Slot Used to Install LiDAR</td>
+</tr>
+<tr>
+<td>LiDAR_id</td>
+<td>22</td>
+<td>uint8_t</td>
+<td>LiDAR ID:<br>1: Mid-100 Left / Mid-40 / Tele-15 / Horizon <br>2: Mid-100 Middle <br>3: Mid-100 Right</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x01_set_lidar_mode">0x01 Set LiDAR Mode<a class="headerlink" href="#0x01_set_lidar_mode" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 \~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Mode Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR mode configuration has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>LiDAR_mode</td>
+<td>16</td>
+<td>uint8_t</td>
+<td>LiDAR Mode: <br>User can configure as follows:<br>0x01: Normal Mode <br>0x02: Power-Saving Mode <br>0x03: Standby Mode</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x01</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Switching</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x02_turn_onoff_designated_slot_power">0x02 Turn On/Off Designated Slot Power<a class="headerlink" href="#0x02_turn_onoff_designated_slot_power" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>slot_id</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Slot id of Hub Range: 1 ~ 9</td>
+</tr>
+<tr>
+<td></td>
+<td>power_ctrl</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Power Control: <br>0x00: Turn Off <br>0x01: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x03_write_lidar_extrinsic_parameters">0x03 Write LiDAR Extrinsic Parameters<a class="headerlink" href="#0x03_write_lidar_extrinsic_parameters" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Write Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>param_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Parameter Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘param_list’, each LiDAR parameter configuration has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>roll</td>
+<td>16</td>
+<td>float</td>
+<td>Roll Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>pitch</td>
+<td>20</td>
+<td>float</td>
+<td>Pitch Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>yaw</td>
+<td>24</td>
+<td>float</td>
+<td>Yaw Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>x</td>
+<td>28</td>
+<td>int32_t</td>
+<td>X Translation, Unit: mm</td>
+</tr>
+<tr>
+<td>y</td>
+<td>32</td>
+<td>int32_t</td>
+<td>Y Translation, Unit: mm</td>
+</tr>
+<tr>
+<td>z</td>
+<td>36</td>
+<td>int32_t</td>
+<td>Z Translation, Unit: mm</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x03</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Write Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code:<br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x04_read_lidar_extrinsic_parameters">0x04 Read LiDAR Extrinsic Parameters<a class="headerlink" href="#0x04_read_lidar_extrinsic_parameters" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x04</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Read Range: 1  ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>param_list</td>
+<td>4</td>
+<td>--</td>
+<td>LiDAR Parameter List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘param_list’, each LiDAR parameter information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>roll</td>
+<td>17</td>
+<td>float</td>
+<td>Roll Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>pitch</td>
+<td>21</td>
+<td>float</td>
+<td>Pitch Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>yaw</td>
+<td>25</td>
+<td>float</td>
+<td>Yaw Angle, Unit: degree</td>
+</tr>
+<tr>
+<td>x</td>
+<td>29</td>
+<td>int32_t</td>
+<td>X Translation, Unit: mm</td>
+</tr>
+<tr>
+<td>y</td>
+<td>33</td>
+<td>int32_t</td>
+<td>Y Translation, Unit: mm</td>
+</tr>
+<tr>
+<td>z</td>
+<td>37</td>
+<td>int32_t</td>
+<td>Z Translation, Unit: mm</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x05_query_lidar_device_status">0x05 Query LiDAR Device Status<a class="headerlink" href="#0x05_query_lidar_device_status" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x05</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR Connected to the Hub Range: 0 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>info_list</td>
+<td>4</td>
+<td>--</td>
+<td>LiDAR Status List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘info_list’, each LiDAR status information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>work_state</td>
+<td>16</td>
+<td>uint8_t</td>
+<td>LiDAR State: <br>0x00: Initializing <br>0x01: Normal <br>0x02: Power-Saving <br>0x03: Standby <br>0x04: Error</td>
+</tr>
+<tr>
+<td>feature_msg</td>
+<td>17</td>
+<td>uint8_t</td>
+<td>LiDAR Mode Message:<br> Bit0: Rain/Fog Suppression Switch <br>0x00: Turn Off <br>0x01: Turn On <br>Bit1 ~ Bit7: Reserved</td>
+</tr>
+<tr>
+<td>ack_msg</td>
+<td>18</td>
+<td>uint32_t</td>
+<td>ACK Message:<br> Relevant to ‘work_state’:<br> work_state is 0x00: Initialization Progress <br>work_state is other: Status Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x06_turn_onoff_hub_extrinsic_parameters_calculation">0x06 Turn On/Off Hub Extrinsic Parameters Calculation<a class="headerlink" href="#0x06_turn_onoff_hub_extrinsic_parameters_calculation" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+<tr>
+<td></td>
+<td>state</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Turn On/Off Parameter Calculation: <br>0: Turn Off <br>1: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> <em>The Hub uses extrinsic parameters stored in each LiDAR for coordinate
+conversion. The coordinate is first rotated and then shifted. The rotation is
+described by Euler angles with the sequence of rotation axes being x-y-z.</em></p>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data </td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x06</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x07_turn_onoff_lidar_rainfog_suppression">0x07 Turn On/Off LiDAR Rain/Fog Suppression<a class="headerlink" href="#0x07_turn_onoff_lidar_rainfog_suppression" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40</p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Feature Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR feature configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>cmd_data</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>0: Turn Off <br>1: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x08_query_hub_slot_power_status">0x08 Query Hub Slot Power Status<a class="headerlink" href="#0x08_query_hub_slot_power_status" title="Permanent link">#</a></h4>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x08</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>slot_power_state</td>
+<td>3</td>
+<td>uint16_t</td>
+<td>Slot Power Status: <br>0x00: Turn Off <br>0x01: Turn On <br>bit0: First Slot <br>bit1: Second Slot <br>... <br>bit8: Ninth Slot</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x09_set_lidar_turn_onoff_fan">0x09 Set LiDAR Turn On/Off Fan<a class="headerlink" href="#0x09_set_lidar_turn_onoff_fan" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Fan Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR fan configuration information has the following
+format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>state</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Turn On/Off Fan:<br>0: Turn Off <br>1: Turn On</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x09</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong>  <em>This cmd data is saved to LiDAR's flash, and power down is not lost.</em></p>
+<h4 id="0x0a_get_lidar_turn_onoff_fan_state">0x0A Get LiDAR Turn On/Off Fan State<a class="headerlink" href="#0x0a_get_lidar_turn_onoff_fan_state" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Mid-40/03.07.0000+ <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Fan Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR fan configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0A</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>state</td>
+<td>17</td>
+<td>uint8_t</td>
+<td>Turn On/Off Fan State:<br>0: Turn Off <br>1: Turn On</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0b_set_lidar_return_mode">0x0B Set LiDAR Return Mode<a class="headerlink" href="#0x0b_set_lidar_return_mode" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0B</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Return Mode Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR return mode configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Return Mode:<br>0x00: Single Return First <br>0x01: Single Return Strongest <br>0x02: Dual Return</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0B</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code<br>This configuration is saved in Flash</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0c_get_lidar_return_mode">0x0C Get LiDAR Return Mode<a class="headerlink" href="#0x0c_get_lidar_return_mode" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0C</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR Return Mode Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR return mode configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0C</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>17</td>
+<td>uint8_t</td>
+<td>Return Mode:<br>0x00: Single Return First <br>0x01: Single Return Strongest <br>0x02: Dual Return</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0d_set_lidar_imu_data_push_frequency">0x0D Set LiDAR IMU Data Push Frequency<a class="headerlink" href="#0x0d_set_lidar_imu_data_push_frequency" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0D</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR IMU Frequency Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR IMU Frequency configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>IMU Data Push Frequency:<br>0x00: 0Hz(Close IMU Data Push) <br>0x01: 200Hz</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0D</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code<br>This configuration is saved in Flash</td>
+</tr>
+</tbody>
+</table>
+<h4 id="0x0e_get_lidar_imu_data_push_frequency">0x0E Get LiDAR IMU Data Push Frequency<a class="headerlink" href="#0x0e_get_lidar_imu_data_push_frequency" title="Permanent link">#</a></h4>
+<p><strong>Supported devices:</strong> <br>Horizon/06.04.0000+ <br>Tele-15/07.03.0000+<br></p>
+<p>request</p>
+<table>
+<thead>
+<tr>
+<th>CMD</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x0C</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Configure Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>config_list</td>
+<td>3</td>
+<td>--</td>
+<td>LiDAR IMU Frequency Configuration List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘config_list’, each LiDAR IMU frequency configuration information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>broadcast_code</td>
+<td>0</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+</tbody>
+</table>
+<p>response</p>
+<table>
+<thead>
+<tr>
+<th>ACK</th>
+<th>Name</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>cmd_set</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>Hub Command: 0x02</td>
+</tr>
+<tr>
+<td></td>
+<td>cmd_id</td>
+<td>1</td>
+<td>uint8_t</td>
+<td>Command ID: 0x07</td>
+</tr>
+<tr>
+<td></td>
+<td>ret_code</td>
+<td>2</td>
+<td>uint8_t</td>
+<td>Return Code: <br>0x00: Success <br>0x01: Fail</td>
+</tr>
+<tr>
+<td></td>
+<td>count</td>
+<td>3</td>
+<td>uint8_t</td>
+<td>Number of LiDAR to Set Range: 1 ~ 27</td>
+</tr>
+<tr>
+<td></td>
+<td>return_list</td>
+<td>4</td>
+<td>--</td>
+<td>Return Information List</td>
+</tr>
+</tbody>
+</table>
+<p>In ‘return_list’, each return information has the following format:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Offset (byte)</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ret_code</td>
+<td>0</td>
+<td>uint8_t</td>
+<td>LiDAR Return Code: <br>0x00: Success <br>0x01: Fail <br>0x02: Device not support</td>
+</tr>
+<tr>
+<td>broadcast_code</td>
+<td>1</td>
+<td>uint8_t[16]</td>
+<td>LiDAR Broadcast Code</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>17</td>
+<td>uint8_t</td>
+<td>IMU Data Push Frequency:<br>0x00: 0Hz(Close IMU Data Push) <br>0x01: 200Hz</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Livox-Viewer/" class="btn btn-neutral float-right" title="1. Color Coding Strategy">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Livox-Viewer/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
