@@ -1,0 +1,23 @@
+site_name: Livox SDK Docs
+nav:
+    - Home: index.md
+    - Livox-SDK-Communication-Protocol.md
+    - Livox-Viewer.md
+    - The-installation-of-Livox-SDK-on-Linux-32-bit-system-and-Mac.md
+    - Timestamp-Synchronization.md
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+        - c
+        - bash
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
+        baselevel: 2
+        separator: "_"
+
+plugins:
+  - search
